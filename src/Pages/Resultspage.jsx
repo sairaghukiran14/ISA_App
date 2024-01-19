@@ -34,8 +34,9 @@ const Resultspage = () => {
       let tag = item.tags.split(", ");
       tagData.push(tag);
     });
-    let finaltags = tagData.filter(
-      (value, index) => tagData.indexOf(value) === index
+    let tagData1 = tagData.flat();
+    let finaltags = tagData1.filter(
+      (value, index) => tagData1.indexOf(value) === index
     );
     return finaltags;
   };
@@ -59,7 +60,7 @@ const Resultspage = () => {
     e.preventDefault();
     fetchData();
   };
-
+  console.log(RecommendTags);
   return (
     <div className="results_section flex flex-col items-center justify-center">
       <div className="navbar_section flex justify-center items-center p-7 w-full">
@@ -87,9 +88,12 @@ const Resultspage = () => {
         Resuts:{searchText}
       </div>
       <div className="content_view_section w-full ">
-        <div className="tags_section p-3 flex gap-2 items-center bg-orange-50 overflow-x-scroll">
-          {RecommendTags?.map((tag) => (
-            <div className="py-1 px-3 border rounded-sm border-black text-sm">
+        <div className="tags_section p-3 flex gap-2 items-center bg-orange-50 overflow-x-scroll ">
+          {RecommendTags?.map((tag, idx) => (
+            <div
+              key={idx}
+              className="py-1 px-3 border rounded-sm border-black text-sm text-ellipsis w-full text-nowrap"
+            >
               {tag}
             </div>
           ))}
